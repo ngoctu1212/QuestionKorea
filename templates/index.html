@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+</head>
+<body>
+    <h1>Audio Player</h1>
+    <button id="play-button">Phát câu hỏi</button>
+    <div id="status"></div>
+
+    <script>
+        document.getElementById('play-button').addEventListener('click', () => {
+            fetch('/play', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('status').innerText = data.error;
+                    } else {
+                        document.getElementById('status').innerText = "Đang phát các câu hỏi!";
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
