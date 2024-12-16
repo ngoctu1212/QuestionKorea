@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 Flask==3.1.0
 pygame
+=======
+Flask==3.1.0
+pygame
+>>>>>>> bcd3c8a8bf92f65eebdab19392a8eac83787515d
 gunicorn
