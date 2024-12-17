@@ -38,7 +38,7 @@
                 audioPlayer.play();
                 audioPlayer.onended = () => {
                     currentIndex++;
-                    setTimeout(playNextAudio, 30000); // Phát file tiếp theo sau 30 giây
+                    setTimeout(playNextAudio, 15000); // Phát file tiếp theo sau 15 giây
                 };
             } else {
                 document.getElementById('status').innerText = "Đã phát xong tất cả câu hỏi!";

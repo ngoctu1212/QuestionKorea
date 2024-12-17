@@ -12,7 +12,7 @@ def index():
 @app.route('/get-audio-files', methods=['GET'])
 def get_audio_files():
     """API trả về danh sách ngẫu nhiên 5 file âm thanh."""
-    audio_files = [f for f in os.listdir(AUDIO_FOLDER) if f.endswith('.mp3') or f.endswith('.wav')]
+    audio_files = [f for f in os.listdir(AUDIO_FOLDER) if f.endswith('.mp3') or f.endswith('.m4a')]
     if len(audio_files) < 5:
         return jsonify({"error": "Không đủ file ghi âm!"}), 400
     random_files = random.sample(audio_files, 5)
