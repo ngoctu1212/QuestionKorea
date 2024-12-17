@@ -15,7 +15,7 @@ def get_audio_files():
     audio_files = [f for f in os.listdir(AUDIO_FOLDER) if f.endswith('.mp3') or f.endswith('.m4a')]
     if len(audio_files) < 5:
         return jsonify({"error": "Không đủ file ghi âm!"}), 400
-    random_files = random.sample(audio_files, 5)
+    random_files = random.sample(audio_files, 30)
     return jsonify({"files": random_files})
 
 @app.route('/audio/<filename>')
