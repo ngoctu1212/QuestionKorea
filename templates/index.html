@@ -6,23 +6,44 @@
     <title>Audio Player</title>
 </head>
 <body>
-    <h1>Audio Player</h1>
-    <button id="play-button">Phát câu hỏi</button>
+    <h1>Phát các câu hỏi ngẫu nhiên</h1>
+    <button onclick="fetchAudioFiles()">Phát câu hỏi</button>
     <div id="status"></div>
+    <audio id="audio-player" controls></audio>
 
     <script>
-        document.getElementById('play-button').addEventListener('click', () => {
-            fetch('/play', { method: 'POST' })
+        const audioPlayer = document.getElementById('audio-player');
+        let audioFiles = [];
+        let currentIndex = 0;
+
+        function fetchAudioFiles() {
+            fetch('/get-audio-files')
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         document.getElementById('status').innerText = data.error;
-                    } else {
-                        document.getElementById('status').innerText = "Đang phát các câu hỏi!";
+                        return;
                     }
-                })
-                .catch(error => console.error('Error:', error));
-        });
+                    audioFiles = data.files;
+                    currentIndex = 0;
+                    playNextAudio();
+                });
+        }
+
+        function playNextAudio() {
+            if (currentIndex < audioFiles.length) {
+                const file = audioFiles[currentIndex];
+                const url = `/audio/${file}`;
+                audioPlayer.src = url;
+                audioPlayer.play();
+                audioPlayer.onended = () => {
+                    currentIndex++;
+                    setTimeout(playNextAudio, 30000); // Phát file tiếp theo sau 30 giây
+                };
+            } else {
+                document.getElementById('status').innerText = "Đã phát xong tất cả câu hỏi!";
+            }
+        }
     </script>
 </body>
 </html>
